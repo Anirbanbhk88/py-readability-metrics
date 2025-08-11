@@ -40,6 +40,14 @@ class AnalyzerStatistics:
     @property
     def num_spache_complex(self):
         return self.stats['num_spache_complex']
+    
+    @property
+    def num_mono_syllable_words(self):
+        return self.stats['num_mono_syllable_words']
+    
+    @property
+    def num_six_letter_words(self):
+        return self.stats['num_six_letter_words']
 
     @property
     def avg_words_per_sentence(self):
@@ -75,6 +83,8 @@ class Analyzer:
         gunning_complex_count = 0
         dale_chall_complex_count = 0
         spache_complex_count = 0
+        mono_syllable_count = 0
+        six_letter_word_count = 0
         porter_stemmer = PorterStemmer()
 
         def is_gunning_complex(t, syllable_count):
@@ -97,7 +107,9 @@ class Analyzer:
                 word_syllable_count = count_syllables(t)
                 syllable_count += word_syllable_count
                 letters_count += len(t)
+                six_letter_word_count += 1 if len(t) >= 6 else 0
                 poly_syllable_count += 1 if word_syllable_count >= 3 else 0
+                mono_syllable_count += 1 if word_syllable_count == 1 else 0
                 gunning_complex_count += \
                     1 if is_gunning_complex(t, word_syllable_count) \
                     else 0
@@ -119,6 +131,8 @@ class Analyzer:
             'num_dale_chall_complex': dale_chall_complex_count,
             'num_spache_complex': spache_complex_count,
             'sentences': sentences,
+            'num_mono_syllable_words': mono_syllable_count,
+            'num_six_letter_words': six_letter_word_count,
         }
 
     def _tokenize_sentences(self, text):

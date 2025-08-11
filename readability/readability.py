@@ -1,13 +1,16 @@
 from .text import Analyzer
 from .scorers import ARI, ColemanLiau, DaleChall, Flesch, \
-    FleschKincaid, GunningFog, LinsearWrite, Smog, Spache
+    FleschKincaid, GunningFog, LinsearWrite, Smog, Spache, WienerSachtextformel
 import warnings
+import nltk
+nltk.download('punkt_tab')
 
 class Readability:
-    def __init__(self, text, min_words=100):
+    def __init__(self, text, min_words=100, language='en'):
         self._analyzer = Analyzer()
         self._statistics = self._analyzer.analyze(text)
         self._min_words = min_words
+        self._language = language
         if self._min_words < 100:
             warnings.warn(
                 "Documents with fewer than 100 words may affect the accuracy of readability tests"
@@ -27,7 +30,7 @@ class Readability:
 
     def flesch(self):
         """Calculate Flesch Reading Ease score."""
-        return Flesch(self._statistics, self._min_words).score()
+        return Flesch(self._statistics, self._min_words, self._language).score()
 
     def flesch_kincaid(self):
         """Calculate Flesch-Kincaid Grade Level."""
@@ -46,6 +49,9 @@ class Readability:
         `all_sentences` indicates whether SMOG should use a sample of 30 sentences, as described in the original paper, or if it should use all sentences in the text"""
         return Smog(self._statistics, self._analyzer.sentences,
                     all_sentences=all_sentences, ignore_length=ignore_length).score()
+    def wiener_sachtextformel(self):
+        """Wiener Sachtextformel."""
+        return WienerSachtextformel(self._statistics, self._min_words).score()
 
     def spache(self):
         """Spache Index."""
