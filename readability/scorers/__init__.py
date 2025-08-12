@@ -9,3 +9,5 @@ from .linsear_write import LinsearWrite
 from .smog import Smog
 from .spache import Spache
 from .wiener_sachtextformel import WienerSachtextformel
+from .lix import LixLesbarkeitsIndex
+from .miyazaki_readability_index import MiyazakiReadabilityIndex

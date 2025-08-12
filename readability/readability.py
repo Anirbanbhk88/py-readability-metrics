@@ -1,8 +1,13 @@
-from .text import Analyzer
-from .scorers import ARI, ColemanLiau, DaleChall, Flesch, \
-    FleschKincaid, GunningFog, LinsearWrite, Smog, Spache, WienerSachtextformel
 import warnings
+
 import nltk
+
+from .scorers import (ARI, ColemanLiau, DaleChall, Flesch, FleschKincaid,
+                      GunningFog, LinsearWrite, LixLesbarkeitsIndex,
+                      MiyazakiReadabilityIndex, Smog, Spache,
+                      WienerSachtextformel)
+from .text import Analyzer
+
 nltk.download('punkt_tab')
 
 class Readability:
@@ -49,9 +54,29 @@ class Readability:
         `all_sentences` indicates whether SMOG should use a sample of 30 sentences, as described in the original paper, or if it should use all sentences in the text"""
         return Smog(self._statistics, self._analyzer.sentences,
                     all_sentences=all_sentences, ignore_length=ignore_length).score()
-    def wiener_sachtextformel(self):
-        """Wiener Sachtextformel."""
-        return WienerSachtextformel(self._statistics, self._min_words).score()
+    def erste_wiener_sachtextformel(self):
+        """erste Wiener Sachtextformel."""
+        return WienerSachtextformel(self._statistics, self._min_words).erste_wiener_sachtextformel_score()
+
+    def zweite_wiener_sachtextformel(self):
+        """zweite Wiener Sachtextformel."""
+        return WienerSachtextformel(self._statistics, self._min_words).zweite_wiener_sachtextformel_score()
+
+    def dritte_wiener_sachtextformel(self):
+        """dritte Wiener Sachtextformel."""
+        return WienerSachtextformel(self._statistics, self._min_words).dritte_wiener_sachtextformel_score()
+
+    def vierte_wiener_sachtextformel(self):
+        """vierte Wiener Sachtextformel."""
+        return WienerSachtextformel(self._statistics, self._min_words).vierte_wiener_sachtextformel_score()
+
+    def lix_lesbarkeits_index(self):
+        """LIX Lesbarkeitsindex."""
+        return LixLesbarkeitsIndex(self._statistics, self._min_words).score()
+    
+    def miyazaki_readability_index(self):
+        """Miyazaki Readability Index."""
+        return MiyazakiReadabilityIndex(self._statistics, self._min_words).score()
 
     def spache(self):
         """Spache Index."""
@@ -65,4 +90,6 @@ class Readability:
             'num_polysyllabic_words': self._statistics.num_poly_syllable_words,
             'avg_words_per_sentence': self._statistics.avg_words_per_sentence,
             'avg_syllables_per_word': self._statistics.avg_syllables_per_word,
+            'num_six_letter_words': self._statistics.num_six_letter_words,
+            'num_mono_syllable_words': self._statistics.num_mono_syllable_words,
         }

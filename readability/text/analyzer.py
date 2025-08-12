@@ -1,8 +1,10 @@
 import os
 import re
-from .syllables import count as count_syllables
-from nltk.tokenize import sent_tokenize, TweetTokenizer
+
 from nltk.stem.porter import PorterStemmer
+from nltk.tokenize import TweetTokenizer, sent_tokenize
+
+from .syllables import count as count_syllables
 
 
 class AnalyzerStatistics:
@@ -48,7 +50,11 @@ class AnalyzerStatistics:
     @property
     def num_six_letter_words(self):
         return self.stats['num_six_letter_words']
-
+    
+    @property
+    def avg_num_six_letter_words(self):
+        return self.stats['num_six_letter_words'] / self.stats['num_words'] if self.stats['num_words'] > 0 else 0
+        
     @property
     def avg_words_per_sentence(self):
         return self.num_words / self.num_sentences
@@ -133,6 +139,7 @@ class Analyzer:
             'sentences': sentences,
             'num_mono_syllable_words': mono_syllable_count,
             'num_six_letter_words': six_letter_word_count,
+            'avg_words_per_sentence': word_count / sentence_count if sentence_count > 0 else 0,
         }
 
     def _tokenize_sentences(self, text):
@@ -165,5 +172,9 @@ class Analyzer:
         file = 'spache_easy_porterstem.txt'
         cur_path = os.path.dirname(os.path.realpath(__file__))
         spache_path = os.path.join(cur_path, '..', 'data', file)
+        with open(spache_path) as f:
+            return set(line.strip() for line in f)
+        with open(spache_path) as f:
+            return set(line.strip() for line in f)
         with open(spache_path) as f:
             return set(line.strip() for line in f)

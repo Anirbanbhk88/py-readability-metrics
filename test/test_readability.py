@@ -107,9 +107,44 @@ class ReadabilityTestGerman(unittest.TestCase):
         self.assertEqual(['13-15 jährige Schülerinnen und Schüler'], r.grade_levels)
         self.assertEqual('mittel', r.ease)
 
-    def test_wiener_sachtextformel_german(self):
-        r = self.readability.wiener_sachtextformel()
+    def test_erste_wiener_sachtextformel_german(self):
+        r = self.readability.erste_wiener_sachtextformel()
         print(r)
         self.assertGreaterEqual( r.score, 11.0)
         self.assertLessEqual(r.score, 12.0)
         self.assertEqual(r.grade_level, ['11th-12th grade'])
+    
+    def test_zweite_wiener_sachtextformel_german(self):
+        r = self.readability.zweite_wiener_sachtextformel()
+        print(r)
+        self.assertGreaterEqual( r.score, 11.0)
+        self.assertLessEqual(r.score, 12.0)
+        self.assertEqual(r.grade_level, ['11th-12th grade'])
+    
+    def test_dritte_wiener_sachtextformel_german(self):
+        r = self.readability.dritte_wiener_sachtextformel()
+        print(r)
+        self.assertGreaterEqual( r.score, 11.0)
+        self.assertLessEqual(r.score, 12.0)
+        self.assertEqual(r.grade_level, ['11th-12th grade'])
+
+    def test_vierte_wiener_sachtextformel_german(self):
+        r = self.readability.vierte_wiener_sachtextformel()
+        print(r)
+        self.assertGreaterEqual( r.score, 11.0)
+        self.assertLessEqual(r.score, 12.0)
+        self.assertEqual(r.grade_level, ['11th-12th grade'])
+
+    def test_lix_lesbarkeits_index_german(self):
+        r = self.readability.lix_lesbarkeits_index()
+        print(r)
+        self.assertGreaterEqual( r.score, 11.0)
+        self.assertLessEqual(r.score, 12.0)
+        self.assertEqual(r.grade_level, ['11th-12th grade'])
+
+    def test_miyazaki_readability_index_german(self):
+        r = self.readability.miyazaki_readability_index()
+        print(r)
+        self.assertGreaterEqual( r.score, 31.0)
+        self.assertLessEqual(r.score, 50.0)
+        self.assertEqual(r.grade_level, ['post-school/college level'])
