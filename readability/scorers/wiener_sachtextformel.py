@@ -1,14 +1,15 @@
 from readability.exceptions import ReadabilityException
 
-
+    
 class Result:
-    def __init__(self, score, grade_level):
+    def __init__(self, score, grade_levels, ease):
         self.score = score
-        self.grade_level = grade_level
+        self.ease = ease
+        self.grade_levels = grade_levels
 
     def __str__(self):
-        return "score: {}, grade_level: '{}'". \
-            format(self.score, self.grade_level)
+        return "score: {}, ease: '{}', grade_levels: {}". \
+            format(self.score, self.ease, self.grade_levels)
 
 
 class WienerSachtextformel:
@@ -21,28 +22,32 @@ class WienerSachtextformel:
         score = self._erste_wiener_sachtextformel_score()
         return Result(
             score=score,
-            grade_level=self._grade_level(score)
+            ease=self._ease(score),
+            grade_levels=self._grade_levels(score)
         )
     
     def zweite_wiener_sachtextformel_score(self):
         score = self._zweite_wiener_sachtextformel_score()
         return Result(
             score=score,
-            grade_level=self._grade_level(score)
+            ease=self._ease(score),
+            grade_levels=self._grade_levels(score)
         )
     
     def dritte_wiener_sachtextformel_score(self):
         score = self._dritte_wiener_sachtextformel_score()
         return Result(
             score=score,
-            grade_level=self._grade_level(score)
+            ease=self._ease(score),
+            grade_levels=self._grade_levels(score)
         )
     
     def vierte_wiener_sachtextformel_score(self):
         score = self._vierte_wiener_sachtextformel_score()
         return Result(
             score=score,
-            grade_level=self._grade_level(score)
+            ease=self._ease(score),
+            grade_levels=self._grade_levels(score)
         )
 
     def _erste_wiener_sachtextformel_score(self):
@@ -101,7 +106,7 @@ class WienerSachtextformel:
         else:
             return 'very_difficult'
 
-    def _grade_level(self, score):
+    def _grade_levels(self, score):
         if score >= 4 and score <= 5:
             return ['4th-5th grade']
         elif score >=6 and score <=7:

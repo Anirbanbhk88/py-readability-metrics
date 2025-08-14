@@ -2,11 +2,14 @@ from readability.exceptions import ReadabilityException
 
 
 class Result:
-    def __init__(self, score):
+    def __init__(self, score, grade_levels, ease):
         self.score = score
+        self.ease = ease
+        self.grade_levels = grade_levels
 
     def __str__(self):
-        return "score: {}".format(self.score)
+        return "score: {}, ease: '{}', grade_levels: {}". \
+            format(self.score, self.ease, self.grade_levels)
 
 
 
@@ -19,7 +22,9 @@ class MiyazakiReadabilityIndex:
     def score(self):
         score = self._score()
         return Result(
-            score=score
+            score=score,
+            ease=self._ease(score),
+            grade_levels=self._grade_levels(score)
         )
 
     def _score(self):
@@ -53,7 +58,7 @@ class MiyazakiReadabilityIndex:
         elif score < 31:
             return 'very_difficult'
 
-    def _grade_level(self, score):
+    def _grade_levels(self, score):
         if score >= 91 and score <= 100:
             return ['5th grade']
         elif score >= 81 and score <= 90:
