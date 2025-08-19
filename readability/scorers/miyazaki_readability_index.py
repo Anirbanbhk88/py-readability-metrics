@@ -14,7 +14,7 @@ class Result:
 
 
 class MiyazakiReadabilityIndex:
-    def __init__(self, stats, min_words=100, language='de'):
+    def __init__(self, stats, min_words=100):
         self._stats = stats
         if stats.num_words < min_words:
             raise ReadabilityException('{} words required.'.format(min_words))

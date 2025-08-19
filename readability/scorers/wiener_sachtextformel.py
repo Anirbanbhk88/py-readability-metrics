@@ -1,6 +1,6 @@
 from readability.exceptions import ReadabilityException
 
-    
+
 class Result:
     def __init__(self, score, grade_levels, ease):
         self.score = score
@@ -13,7 +13,7 @@ class Result:
 
 
 class WienerSachtextformel:
-    def __init__(self, stats, min_words=100, language='de'):
+    def __init__(self, stats, min_words=100):
         self._stats = stats
         if stats.num_words < min_words:
             raise ReadabilityException('{} words required.'.format(min_words))
@@ -53,6 +53,7 @@ class WienerSachtextformel:
     def _erste_wiener_sachtextformel_score(self):
         """
         The first Wiener Sachtextformel
+        WSTF1 considers all four main factors: sentence length, sentence count, proportion of long words, and proportion of monosyllabic words.
 
         The formula is:
             0.1935 * ratio of words with >= 3 syllables + 0.1672 * mean sentence length +
@@ -65,6 +66,7 @@ class WienerSachtextformel:
     def _zweite_wiener_sachtextformel_score(self):
         """
         The second Wiener Sachtextformel
+        WSTF2 is similar to WSTF1, but weights the factors slightly differently, omitting the proportion of monosyllabic words.
 
         The formula is:
             0.2007 * ratio of words with >= 3 syllables + 0.1682 * mean sentence length +
@@ -77,6 +79,7 @@ class WienerSachtextformel:
     def _dritte_wiener_sachtextformel_score(self):
         """
         The third Wiener Sachtextformel
+        WSTF3 is the simplest formula because it only takes into account the mean sentence length and the proportion of long words.
 
         The formula is:
             0.2963 * ratio of words with >= 3 syllables + 0.1905 * mean sentence length - 1.1144
@@ -87,6 +90,7 @@ class WienerSachtextformel:
     def _vierte_wiener_sachtextformel_score(self):
         """
         The fourth Wiener Sachtextformel
+        WSTF4 focuses specifically on readability in relation to school levels, which is why the weighting of sentence length is greater.
 
         The formula is:
             0.2744 * ratio of words with >= 3 syllables + 0.2656 * mean sentence length - 1.693
