@@ -148,3 +148,7 @@ class ReadabilityTestGerman(unittest.TestCase):
         self.assertGreaterEqual( r.score, 31.0)
         self.assertLessEqual(r.score, 50.0)
         self.assertEqual(r.grade_level, ['post-school/college level'])
+
+    def test_gsmog_german(self):
+        r = self.readability.gsmog()
+        print(r)

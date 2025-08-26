@@ -5,7 +5,7 @@ import nltk
 from .scorers import (ARI, ColemanLiau, DaleChall, Flesch, FleschKincaid,
                       GunningFog, LinsearWrite, LixLesbarkeitsIndex,
                       MiyazakiReadabilityIndex, Smog, Spache,
-                      WienerSachtextformel)
+                      WienerSachtextformel, Gsmog)
 from .text import Analyzer
 
 nltk.download('punkt_tab')
@@ -54,6 +54,11 @@ class Readability:
         `all_sentences` indicates whether SMOG should use a sample of 30 sentences, as described in the original paper, or if it should use all sentences in the text"""
         return Smog(self._statistics, self._analyzer.sentences,
                     all_sentences=all_sentences, ignore_length=ignore_length).score()
+    
+    def gsmog(self, ignore_length=False):
+        """GSMOG Index. Measure the SMOG score adapted for German text"""
+        return Gsmog(self._statistics, ignore_length=ignore_length).score()
+
     def erste_wiener_sachtextformel(self):
         """erste Wiener Sachtextformel."""
         return WienerSachtextformel(self._statistics, self._min_words).erste_wiener_sachtextformel_score()
