@@ -112,12 +112,12 @@ class WienerSachtextformel:
 
     def _grade_levels(self, score):
         if score >= 4 and score <= 5:
-            return ['4th-5th grade']
+            return ['4', '5']
         elif score >=6 and score <=7:
-            return ['6th-7th grade']
+            return ['6', '7']
         elif score >=8 and score <=10:
-            return ['8th-10th grade']
+            return ['8', '9', '10']
         elif score >=11 and score <=12:
-            return ['11th-12th grade']
+            return ['11', '12']
         else:
             return ['college level and above']

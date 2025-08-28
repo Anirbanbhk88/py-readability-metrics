@@ -60,15 +60,15 @@ class MiyazakiReadabilityIndex:
 
     def _grade_levels(self, score):
         if score >= 91 and score <= 100:
-            return ['5th grade']
+            return ['5']
         elif score >= 81 and score <= 90:
-            return ['6th grade']
+            return ['6']
         elif score >= 71 and score <= 80:
-            return ['7th grade']
+            return ['7']
         elif score >= 61 and score <= 70:
-            return ['8th - 9th grade']
+            return ['8', '9']
         elif score >= 51 and score <= 60:
-            return ['10th - 12th grade']
+            return ['10', '11', '12']
         elif score >= 31 and score <= 50:
             return ['post-school/college level']
         elif score < 31:

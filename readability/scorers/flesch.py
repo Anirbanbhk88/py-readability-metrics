@@ -90,16 +90,16 @@ class Flesch:
                 return ['college_graduate']
         elif self._language == 'de':
             if score >= 90 and score <= 100:
-                return ['11-jährige Schülerinnen und Schüler']
+                return ['11']
             elif score >= 80 and score < 90:
-                return ['11-12 jährige Schülerinnen und Schüler']
+                return ['11, 12']
             elif score >= 70 and score < 80:
-                return ['11-12 jährige Schülerinnen und Schüler']
+                return ['11, 12']
             elif score >= 60 and score < 70:
-                return ['13-15 jährige Schülerinnen und Schüler']
+                return ['13, 14, 15']
             elif score >= 50 and score < 60:
-                return ['13-15 jährige Schülerinnen und Schüler']
+                return ['13, 14, 15']
             elif score >= 30 and score < 50:
-                return ['13-15 jährige Schülerinnen und Schüler']
+                return ['13, 14, 15']
             else:
                 return ['Akademikerinnen und Akademiker']
